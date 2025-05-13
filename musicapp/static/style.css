@@ -1,0 +1,94 @@
+body {
+    background: linear-gradient(135deg, #06045a, #201634);
+    font-family: 'Segoe UI', sans-serif;
+    color: #f0f0f0;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(15px);
+    border-radius: 20px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+}
+
+.music-player {
+    margin-bottom: 2rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 1.5rem;
+    border-radius: 15px;
+    background: rgba(255, 255, 255, 0.07);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    transition: transform 0.2s ease-in-out;
+}
+
+.music-player:hover {
+    transform: scale(1.01);
+}
+
+.cover img.album-cover {
+    width: 100%;
+    max-height: 300px;
+    object-fit: contain;
+    border-radius: 12px;
+    margin-bottom: 1rem;
+}
+
+.song-info {
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+.song-info h1.title {
+    font-size: 1.8rem;
+    margin: 0.2rem 0;
+}
+
+.song-info h2.artist {
+    font-size: 1.2rem;
+    color: #ccc;
+    font-weight: 300;
+    margin: 0;
+}
+
+.duration {
+    font-size: 0.9rem;
+    color: #aaa;
+}
+
+.audio-player audio {
+    width: 100%;
+    outline: none;
+    margin-top: 1rem;
+}
+
+.lyrics-container {
+    margin-top: 1rem;
+    background: rgba(0, 0, 0, 0.2);
+    padding: 1rem;
+    border-radius: 10px;
+    font-style: italic;
+    color: #ddd;
+}
+
+.pagination-controls {
+    margin-top: 1.5rem;
+    text-align: center;
+}
+
+.pagination-controls a {
+    color: #ffffff;
+    text-decoration: none;
+    margin: 0 1rem;
+    transition: color 0.3s;
+}
+
+.pagination-controls a:hover {
+    color: #69e100;
+}
+

@@ -1,0 +1,45 @@
+{% for song in page_obj %}
+<div class="music-player">
+    <div class="cover">
+        <img src="https://th.bing.com/th/id/R.8040f1338804e7d6d5d08bea2ac6ca84?rik=Jn22YR%2fvdJMYtA&riu=http%3a%2f%2fimages5.fanpop.com%2fimage%2fphotos%2f31700000%2fLinkin-Park-2012-Official-Promo-linkin-park-31776714-2560-1918.jpg&ehk=kXRBFg0bqc2%2fFwWLPJ8SZi8TB8k9Q5mZZZro5stgGdA%3d&risl=&pid=ImgRaw&r=0" alt="Album Cover" class="album-cover">
+    </div>
+
+    <div class="song-info">
+        <h2 class="artist">{{ song.artist }}</h2>
+        <h1 class="title">{{ song.title }}</h1>
+        <p class="duration">Duration: {{ song.duration }}</p>
+    </div>
+    <p>Audio Source: 
+        {% if song.audio_file %}
+          {{ song.audio_file.url }}
+        {% elif song.audio_link %}
+          {{ song.audio_link }}
+        {% else %}
+          No audio source.
+        {% endif %}
+      </p>
+
+    <div class="audio-player">
+        <audio controls preload="auto">
+            <source src="{% if song.audio_file %}{{ song.audio_file.url }}{% else %}{{ song.audio_link }}{% endif %}" type="audio/mp3">
+            Your browser does not support the audio element.
+        </audio>
+    </div>
+
+    {% if song.lyrics %}
+    <div class="lyrics-container">
+        <p class="song-lyrics" data-lyrics="{{ song.lyrics|escape }}"></p>
+    </div>
+    {% endif %}
+
+    <div class="pagination-controls">
+        {% if page_obj.has_previous %}
+            <a href="?page={{ page_obj.previous_page_number }}"><i class="fa fa-step-backward fa-2x"></i></a>
+        {% endif %}
+        &nbsp; &nbsp;
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}"><i class="fa fa-step-forward fa-2x"></i></a>
+        {% endif %}
+    </div>
+</div>
+{% endfor %}
