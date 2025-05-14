@@ -92,3 +92,53 @@ body {
     color: #69e100;
 }
 
+.add-song-wrapper {
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+.toggle-button {
+    background-color: #69e100;
+    color: #000;
+    font-weight: bold;
+    padding: 0.6rem 1.2rem;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    margin-bottom: 1rem;
+}
+
+.toggle-button:hover {
+    background-color: #90ff2e;
+}
+
+.add-song-form {
+    background: rgba(255,255,255,0.05);
+    padding: 1rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+}
+
+.add-song-form input,
+.add-song-form button {
+    width: 100%;
+    margin-bottom: 0.8rem;
+    padding: 0.5rem;
+    border-radius: 8px;
+    border: none;
+    background: rgba(255,255,255,0.1);
+    color: #fff;
+}
+
+.add-song-form button {
+    background: #69e100;
+    color: #000;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.add-song-form button:hover {
+    background: #90ff2e;
+}

@@ -1,0 +1,1 @@
+from .text import make_lyrics
