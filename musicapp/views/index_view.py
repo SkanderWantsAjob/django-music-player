@@ -34,6 +34,5 @@ def index_view_render(request):
     paginator= Paginator(Song.objects.all(),1)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
-    print(page_obj[0].lyrics)
     context={"page_obj":page_obj}
     return render(request,"home.html",context)

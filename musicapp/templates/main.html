@@ -1,7 +1,7 @@
 {% for song in page_obj %}
 <div class="music-player">
     <div class="cover">
-        <img src="https://th.bing.com/th/id/R.8040f1338804e7d6d5d08bea2ac6ca84?rik=Jn22YR%2fvdJMYtA&riu=http%3a%2f%2fimages5.fanpop.com%2fimage%2fphotos%2f31700000%2fLinkin-Park-2012-Official-Promo-linkin-park-31776714-2560-1918.jpg&ehk=kXRBFg0bqc2%2fFwWLPJ8SZi8TB8k9Q5mZZZro5stgGdA%3d&risl=&pid=ImgRaw&r=0" alt="Album Cover" class="album-cover">
+        <img  src="{% if song.image and song.image.name %}{{ song.image.url }}{% endif %}"  alt="Album Cover" class="album-cover">
     </div>
 
     <div class="song-info">
