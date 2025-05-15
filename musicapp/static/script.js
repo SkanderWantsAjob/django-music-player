@@ -25,34 +25,28 @@ var audio = {
 };
 audio.init();
 
-document.addEventListener('DOMContentLoaded', function () {
-    const audio = document.getElementById('fc-media'); // The audio element
-    const lyricsContainer = document.getElementById('song-lyrics'); // Container to display lyrics
-    let currentLyricIndex = 0; // To track which lyric to show
-
-    // Retrieve the lyrics data from the data attribute and parse it as JSON
-    const lyricsData = JSON.parse(lyricsContainer.getAttribute('data-lyrics'));
-
-    // Event listener for audio time update
-    audio.addEventListener('timeupdate', function () {
-        const currentTime = audio.currentTime; // Get current time of the audio
-
-        // Loop to find the lyric to display based on the current time
-        while (currentLyricIndex < lyricsData.length - 1 && currentTime >= timeToSeconds(lyricsData[currentLyricIndex].time)) {
-            currentLyricIndex++; // Move to the next lyric
-        }
-
-        // Update the displayed lyrics
-        lyricsContainer.innerText = lyricsData[currentLyricIndex].lyrics;
-    });
-
-    // Helper function to convert time (like "1:45") into seconds
-    function timeToSeconds(time) {
-        const [minutes, seconds] = time.split(':').map(parseFloat); // Split the time into minutes and seconds
-        return minutes * 60 + seconds; // Convert to total seconds
+document.addEventListener('DOMContentLoaded', function() {
+    const audioPlayer = document.getElementById('fc-media');
+    const timeDisplay = document.getElementById('current-time');
+    
+    // Format seconds as mm:ss
+    function formatTime(seconds) {
+        const mins = Math.floor(seconds / 60);
+        const secs = Math.floor(seconds % 60);
+        return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
     }
+    
+    // Update time display
+    function updateTime() {
+        timeDisplay.textContent = formatTime(audioPlayer.currentTime);
+    }
+    
+    // Update time regularly
+    audioPlayer.addEventListener('timeupdate', updateTime);
+    
+    // Also update when user seeks
+    audioPlayer.addEventListener('seeked', updateTime);
 });
-
 
 
 
@@ -66,3 +60,59 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
+const lyrics_content = document.querySelector('.song-lyrics')
+const lyricsData = JSON.parse(lyrics_content.getAttribute('data-lyrics'));
+
+console.log(lyricsData)
+
+    const audioPlayer = document.getElementById('fc-media');
+    const timeDisplay = document.getElementById('current-time');
+    
+
+    function seekToNearestLyricBeforeCurrentTime(audioPlayer, lyricsData) {
+        // Get current time in seconds
+        const currentTime = audioPlayer.currentTime;
+        
+        // Convert all lyric times to seconds and find the closest one <= currentTime
+        let closestTime = 0;
+        let closestIndex = -1;
+        
+        lyricsData.forEach((lyric, index) => {
+            const [minutes, seconds] = lyric.time.split(':');
+            const timeInSeconds = parseFloat(minutes) * 60 + parseFloat(seconds);
+
+            if (timeInSeconds <= currentTime && timeInSeconds > closestTime) {
+                
+                closestTime = timeInSeconds;
+                closestIndex = index;
+            }
+        });
+        
+        // If we found a matching time, seek to it
+        if (closestIndex !== -1) {
+            
+            current_lyric=lyricsData[closestIndex].lyrics
+            console.log(current_lyric)
+            return current_lyric;
+        }
+        
+        return "[instrumental]";
+    }
+
+
+
+    audioPlayer.addEventListener('timeupdate', function() {
+        const currentTime = this.currentTime;
+        const currentLyric = seekToNearestLyricBeforeCurrentTime(audioPlayer, lyricsData);
+        console.log(currentLyric)
+        lyrics_content.textContent=currentLyric
+        
+
+    });
+
+    lyricsData.forEach((lyric, index) => {
+        const [minutes, seconds] = lyric.time.split(':');
+        console.log("minutes" + minutes + "seconds" + seconds + "lyric time" + lyric.time.split(":"))
+        const timeInSeconds = parseFloat(minutes) * 60 + parseFloat(seconds);
+        console.log("time is:" + timeInSeconds)
+    });

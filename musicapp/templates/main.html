@@ -16,10 +16,11 @@
             Your browser does not support the audio element.
         </audio>
     </div>
+    <div id="current-time">00:00</div>
 
     {% if song.lyrics %}
     <div id="song-lyrics" class="lyrics-container">
-        <p class="song-lyrics" data-lyrics="{{ song.lyrics|escape }}"></p>
+        <p class="song-lyrics" data-lyrics="{{ song.lyrics }}"></p>
     </div>
     {% endif %}
 
